@@ -32,18 +32,41 @@ class WebRequestHandler(BaseHTTPRequestHandler):
         return SimpleCookie(self.headers.get("Cookie"))
 
     def do_GET(self):
+        # Este código no va aquí, es mejor
+        # sacarlo a su propio método.
+        # Es solo un ejemplo.
+        c = self.cookies
+        if not c:
+            print("No cookie")
+            c = SimpleCookie()
+            c["session"] = 1
+            c["session"]["max-age"] = 10
+            print(c)
+        else:
+            print("Cookie found")
+            session = c.get("session", 1)
+            c["session"]["max-age"] = 10
+            # Utiliza session como clave.
         self.send_response(200)
         self.send_header("Content-Type", "text/html")
+        self.send_header('Set-Cookie', c.output(header=''))
         self.end_headers()
         self.wfile.write(self.get_response().encode("utf-8"))
+
+    def do_POST(self):
+        self.do_GET()
 
     def get_response(self):
         return f"""
     <h1> Hola Web </h1>
-    <p>  {self.path}         </p>
-    <p>  {self.headers}      </p>
-    <p>  {self.cookies}      </p>
-    <p>  {self.query_data}   </p>
+    <p>  Path: {self.path}         </p>
+    <p>  Headers: {self.headers}      </p>
+    <p>  Cookies: {self.cookies}      </p>
+    <p>  Query Data: {self.query_data}   </p>
+    <p>  Form Data: {self.form_data}   </p>
+    <code> 
+    curl -v -i 'http://127.0.0.1:8000?id=123&value=22' --data 'user=mariosky&password=clavesecreta' -H 'Cookie: session=3;eu_cookie_consent=true'
+    </code>
 """
 
 
