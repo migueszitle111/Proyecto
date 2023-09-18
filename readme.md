@@ -1,2 +1,2 @@
 ## Proyecto
-Uso de git clone
+Uso de git clone desde la terminal de ubuntu
