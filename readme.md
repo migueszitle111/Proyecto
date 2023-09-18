@@ -1,2 +1,2 @@
 ## Proyecto
-proyecto 01
+Uso de git clone
