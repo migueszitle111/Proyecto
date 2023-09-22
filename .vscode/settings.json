@@ -1,0 +1,8 @@
+{
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.fontSize": 18,
+    "terminal.integrated.fontWeight": "normal",
+    "files.associations": {
+        "plyconfig.json": "jsonc"
+    }
+}
